@@ -1,0 +1,65 @@
+
+
+Referencias y herencia
+
+Mander m = new Mander();
+Muniemon mu = new Muniemon(); Error en tiempo de compilacion (Clase abstracta)
+Muniemon mu = m; // SI
+Object o = new Muniemon(); // Error en tiempo de compilacion (Clase abstracta)
+Object o = new Mander();
+o.toString(); -> Mostrara el toString del objeto al que este apuntando, en este caso Mander.
+				 Por lo tanto, SI, y mediante el polimorfismo se ejecutara el metodo toString() de la clase Mamander
+
+o.getNombre(); -> NO, ya que la clase padre Object, no tiene los metodos de Mander
+Mander m2 = (Mander)o;
+m2.getNombre(); -> Ahora si se podra, ya que "o" ha sido casteado a m2 cuya referencia apunta a un objeto tipo Mander
+Muniemon mu2 = (Mander)o; -> SI podria, ya que Mander es hija de Muniemon
+Muniemon mu3 = (Muniemon)o;	-> Si se podría tambien
+
+o = new ArrayList<Muniemon>();
+Mander m3 = new Object(); -> No se puede, la hija intenta apuntar al padre ERROR
+
+Object o2 = new Object(); -> La unica manera de apuntar a un object es con una referencia Object
+
+Object o = new Mander();
+Mander m2 = (Mander)o;
+Mander m4 = o; -> Seria necesario siempre castearlo
+o = new ArrayList<Muniemon>();
+
+o instanceof Mander -> FALSE, esta apuntando a un array
+o instanceof ArrayList<Muniemon> .> TRUE, esta apuntando a un arraylist
+
+Mander m5 = (Mander)o; // Error en tiempo de ejecución ClassCastException || el objeto o, es un arraylist de tipo Muniemon no un Mander
+
+IElectrico ie = new IElectrico(); -> No se pueden instanciar interfazes
+IElectrico ie2 = new Rotemon(); -> Si se puede, las instancias pueden apuntar a todas las clases que implementen. PERO SOLO SE PODRAN UTILIZAR
+									LOS METODOS DE IELECTRICO
+
+ie2.getNombre(); -> NO SE PUEDE, ya que getNombre, no existe en la interfaz
+ie2.paralizar(); -> SI SE PUEDE, ya que este metodo existe en la interfaz, en este caso al estar implementado gracias al polimorfismo
+mostrara el metodo implementado del objeto al que esta apuntando
+
+ie2.toString(); -> SI SE PUEDE, este metodo viene de mas arriba, TODO HEREDA DE OBJECT
+
+
+ie2 = new Mander(); -> NO SE PUEDE, Mander no implementa IElectrico
+ie2 = new Mikachu(); -> SI SE PODRIA, Mikachu implementa IElectrico
+
+List <Electrico> listaElectricos = new ArrayList <>(); -> Si se puede, Arraylist, es una clase hija de List
+listaElectricos.add(ie2); -> SI SE PUEDE, ie2 es un objeto Mikachu
+listaElectricos.add(new Mikachu()); -> Si SE PUEDE, la referencia del objeto Mikachu que implementa IElectrico es la posicion 1 del array
+listaElectricos.add(new Object()); -> NO SE PUEDE, Object esta por encima de IElectrico
+listaElectricos.add(new Rotemon()); -> SI SE PUEDE,Rotemon implementa la interfaz IElectrico
+
+Object o2 = 3 -> SI, se puede porque Java hace automaticamente un auto Wrapper, es decir es una clase Integer
+
+var variable = new Rotemon();// SI, con var siempre se podra, pero a partir de ese momento siempre sera de tipo Rotemon, es decir, al principio
+								a lo que lo iguales sera su tipo para siempre
+								
+variable = new Rotemon(); -> SI se puede, variable es var que tiene el tipo Rotemon
+variable = new Mikachu(); -> No se puede, variable es tipo Rotemon
+var variable2 = new Muniemon(); -> NO, no es instanciable es abstracta
+var variable3 = new Object(); -> SI, se puede, ya que Object es instanciable y es la clase padre
+variable3 = new Mikachu(); -> La variable3 puede apuntar a Mikachu porque Object es la clase padre de todos
+
+			
